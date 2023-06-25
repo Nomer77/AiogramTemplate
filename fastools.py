@@ -18,7 +18,7 @@ async def delete_message(state: FSMContext, chat_id: int) -> None:
             finally:
                 del base['message']
 
-async def dalek(state: FSMContext, CHAT_ID: int, MESSAGE_TEXT: str, MESSAGE_MARKUP=None, edit_message=True):
+async def dalek(state: FSMContext, CHAT_ID: int, MESSAGE_TEXT: str, MESSAGE_MARKUP=None, edit_message=True) -> None:
     """Удобная функция продолжающая диалог методом изменения сообщений с обработкой ошибок"""
     if await state.get_state() is None:
         return await bot.send_message(CHAT_ID, MESSAGE_TEXT, reply_markup=MESSAGE_MARKUP)
