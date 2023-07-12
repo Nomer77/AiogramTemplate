@@ -14,9 +14,13 @@ async def delete_message(state: FSMContext, chat_id: int) -> None:
                 await bot.delete_message(chat_id, base['message'].message_id)
             except exceptions.MessageToDeleteNotFound:
                 logging.warning("MessageToDeleteNotFound")
-                logging.debug(message, "\n", await state.get_state())
+                logging.debug(base['message'], "\n", await state.get_state())
             finally:
                 del base['message']
+
+async def set_message(state: FSMContext, message: types.Message) -> None:
+    async with state.proxy() as base:
+        base['message'] = message
 
 async def dalek(state: FSMContext, CHAT_ID: int, MESSAGE_TEXT: str, MESSAGE_MARKUP=None, edit_message=True) -> None:
     """Удобная функция продолжающая диалог методом изменения сообщений с обработкой ошибок"""
@@ -38,6 +42,3 @@ async def dalek(state: FSMContext, CHAT_ID: int, MESSAGE_TEXT: str, MESSAGE_MARK
         async with state.proxy() as base:
             base['message'] = await bot.send_message(CHAT_ID, MESSAGE_TEXT, reply_markup=MESSAGE_MARKUP)
 
-async def set_message(state: FSMContext, message: types.Message) -> None:
-    async with state.proxy() as base:
-        base['message'] = message
