@@ -1,9 +1,9 @@
 from tortoise.models import Model
 from tortoise import fields
 
-class TelegramUsers(Model):
+
+class TelegramUser(Model):
     TelegramID = fields.IntField(pk=True)
     first_name = fields.CharField(max_length=255, null=True, blank=True)
-
-    def __str__(self):
-        return str(self.TelegramID)
+    is_admin = fields.BooleanField(default=False)
+    is_banned = fields.BooleanField(default=False)
