@@ -1,14 +1,15 @@
-from aiogram import Bot
-from aiogram.dispatcher import Dispatcher
-from aiogram.contrib.fsm_storage.memory import MemoryStorage
-from aiogram.utils.executor import Executor
-from aiogram.utils.exceptions import ValidationError
-from DataBase import ORM
+from aiogram import Bot, Dispatcher
+from aiogram.enums import ParseMode
+from aiogram.client.default import DefaultBotProperties
+from aiogram.fsm.storage.memory import MemoryStorage, SimpleEventIsolation
+from aiogram.utils.token import TokenValidationError
 from dotenv import load_dotenv
 from typing import Final
 import logging
 import os
 import sys
+
+from orm import ORM
 
 
 def load_envFile(env_file: str) -> None:
@@ -20,21 +21,22 @@ def load_envFile(env_file: str) -> None:
         sys.exit(1)
 
 logging.basicConfig(level=logging.INFO)
-load_envFile(".env")
+
+ENV_FILE = ".env"
+load_envFile(ENV_FILE)
+
 try:
-    bot: Final = Bot(token=os.getenv("BOT_TOKEN"), parse_mode='html')
-except ValidationError:
+    bot: Final = Bot(token=os.getenv("BOT_TOKEN"), default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+except TokenValidationError:
     logging.critical("The token is undefined or invalid. Check .env file")
     sys.exit(1)
-storage: Final = MemoryStorage()
-dp: Final = Dispatcher(bot, storage=storage)
-executor: Final = Executor(dp, skip_updates=True)
 
-async def service_startup(dp: Dispatcher):
+dp: Dispatcher = Dispatcher(storage=MemoryStorage(), events_isolation=SimpleEventIsolation())
+
+
+async def on_startup():
     await ORM.orm_init()
 
-async def service_shutdown(dp: Dispatcher):
-    await dp.storage.close()
-    await dp.storage.wait_closed()
+async def on_shutdown():
     await ORM.orm_shutdown()
-
+    await dp.storage.close()
