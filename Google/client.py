@@ -15,8 +15,8 @@ class GSheets:
 
         self.gclient = gspread.service_account(filename=path_to_credentials)
 
-        self.survey: GWorker = GWorker(
+        self.common: GWorker = GWorker(
             gclient=self.gclient,
-            spreadsheet_key=os.getenv("GOOGLE_SURVEY_SPREADSHEET_KEY"),
-            worksheet_id=int(os.getenv("GOOGLE_SURVEY_WORKSHEET_ID"))
+            spreadsheet_key=os.getenv("GOOGLE_COMMON_SPREADSHEET_KEY"),
+            worksheet_id=int(os.getenv("GOOGLE_COMMON_WORKSHEET_ID"))
         )

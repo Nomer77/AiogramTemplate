@@ -10,6 +10,7 @@ import os
 import sys
 
 from orm import ORM
+from Google import GSheets
 
 
 def load_envFile(env_file: str) -> None:
@@ -22,8 +23,8 @@ def load_envFile(env_file: str) -> None:
 
 logging.basicConfig(level=logging.INFO)
 
-ENV_FILE = ".env.template"
-load_envFile(ENV_FILE)
+ENV_BASE_DIR = "environments/template/"
+load_envFile(ENV_BASE_DIR + '.env')
 
 try:
     bot: Final = Bot(token=os.getenv("BOT_TOKEN"), default=DefaultBotProperties(parse_mode=ParseMode.HTML))
@@ -32,6 +33,7 @@ except TokenValidationError:
     sys.exit(1)
 
 dp: Dispatcher = Dispatcher(storage=MemoryStorage(), events_isolation=SimpleEventIsolation())
+sheet: GSheets = GSheets(path_to_credentials=ENV_BASE_DIR + 'google-service.json')
 
 
 async def on_startup():
