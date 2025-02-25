@@ -22,7 +22,7 @@ def load_envFile(env_file: str) -> None:
 
 logging.basicConfig(level=logging.INFO)
 
-ENV_FILE = ".env"
+ENV_FILE = ".env.template"
 load_envFile(ENV_FILE)
 
 try:
