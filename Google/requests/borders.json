@@ -1,0 +1,42 @@
+{
+    "bottom": {
+        "style": "SOLID",
+        "width": 1,
+        "color": {
+            "red": 0,
+            "green": 0,
+            "blue": 0,
+            "alpha": 1
+        }
+    },
+    "top": {
+        "style": "SOLID",
+        "width": 1,
+        "color": {
+            "red": 0,
+            "green": 0,
+            "blue": 0,
+            "alpha": 1
+        }
+    },
+    "left": {
+        "style": "SOLID",
+        "width": 1,
+        "color": {
+            "red": 0,
+            "green": 0,
+            "blue": 0,
+            "alpha": 1
+        }
+    },
+    "right": {
+        "style": "SOLID",
+        "width": 1,
+        "color": {
+            "red": 0,
+            "green": 0,
+            "blue": 0,
+            "alpha": 1
+        }
+    }
+}

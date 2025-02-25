@@ -1,0 +1,12 @@
+{
+    "backgroundColor": {
+        "red": 0.91,
+        "green": 0.41,
+        "blue": 0.41
+    },
+    "horizontalAlignment": "LEFT",
+    "numberFormat": {
+        "type": "TEXT",
+        "pattern": "dd.mm.yyyy"
+    }
+}
