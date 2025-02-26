@@ -19,4 +19,4 @@ The context variables used in rendering/writing the configuration are:
 ## Testing and deployment automation
 
 The project build and run with Dockerfile, that why you need firstly install docker.
-Run `docker build -t <my-bot-image> .` and then `docker run -d --name my-bot-container my-bot`
+Run `docker build --network=host -t <my-bot-image> .` and then `docker run --network=host -d --name my-bot-container my-bot`
