@@ -1,7 +1,7 @@
 import logging
 from aiogram_dialog import DialogManager
 
-from utils import send_message
+from tools.sender import send_message
 
 USER_ERROR_INFO = "Ваша прошлая сессия оказалась недействительной. Пожалуйста, введите команду /start ещё раз"
 
